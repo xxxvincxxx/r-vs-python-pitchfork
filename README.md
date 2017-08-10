@@ -68,3 +68,6 @@ sys	 0m0.954s```
 
 
 The R script is apparently *faster*. Bear in mind that the python script prompts images via matplotlib `plt.show()` during the execution of the script. In any case ggplot2 does the same. So it is worth to investigate the issue (*does matplotplib comand `plt.show()` actually makes the exectution of the script slower?*)
+
+* #### [[Link](https://github.com/xxxvincxxx/pitchfork-data/blob/master/notebooks/reviewer-development.ipynb)]: Reviewer development: do authors get tougher with experience?
+
