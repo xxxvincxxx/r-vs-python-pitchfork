@@ -72,3 +72,71 @@ The R script is apparently *faster*. Bear in mind that the python script prompts
 
 * #### [[Link](https://github.com/xxxvincxxx/pitchfork-data/blob/master/notebooks/reviewer-development.ipynb)]: Reviewer development: do authors get tougher with experience?
 
+The notebook analyses:
+   + Get a sense of how many articles each person tends to write
+   + Average score vs. Number of reviews per authors divided in 2 subsets (>70 reviews, <70 reviews)
+   
+Here the performance benchmarks:
+
+In R:
+
+```console
+vincenzo@B-N-022:~./scripts$ time Rscript script_R.R 
+── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+✔ tibble  1.4.2     ✔ dplyr   0.7.4
+✔ tidyr   0.8.0     ✔ stringr 1.3.0
+✔ readr   1.1.1     ✔ forcats 0.3.0
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+real	0m2.542s
+user	0m2.425s
+sys     0m0.091s
+
+```
+
+In Python: 
+
+```console
+vincenzo@B-N-022:~./scripts$ time python script_py.py 
+real	0m7.721s
+user	0m2.625s
+sys	 0m0.846s
+```
+
+
+Now, a caveat. In the python script, a for loop is used. R is infamously known for being kind of sucky at for loops. Bearing this in mind, I isolated the part of the scripts that contain the loop, and benchmarked them.
+
+The `for loop` in R:
+
+```console
+vincenzo@B-N-022:~./scripts$ time Rscript script_loop_R.R 
+real	0m1.151s
+user	0m1.065s
+sys	 0m0.071s
+```
+The `for loop` in Python:
+
+
+```console
+vincenzo@B-N-022:~./scripts$ time python script_loop_py.py 
+real	0m0.578s
+user	0m0.583s
+sys	 0m0.302s
+```
+
+Python is 66.2811% faster! (wtf)
+
+But let's not panic. What I need to do is avoid a `for loop` in base R and try:
+
+* the apply family
+* RC++
+* foreach library
+
+and then I will:
+1. Benchmark these methods - in R - among them.
+2. Benchmark the winner vs. the python script.
+
+But not here, I will probably need to create another repository one day. But let's keep this conversation open here in order not to forget. 
