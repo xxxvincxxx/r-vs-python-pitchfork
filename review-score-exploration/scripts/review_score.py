@@ -8,16 +8,16 @@ from scipy.signal import savgol_filter
 pd.set_option('precision', 2)
 np.set_printoptions(precision=2)
 
-con = sqlite3.connect('../data/database.sqlite')
+con = sqlite3.connect('/home/vincenzo/Documents/GitHub/r-vs-python-pitchfork/data/database.sqlite')
 reviews = pd.read_sql('SELECT * FROM reviews', con)
 genres = pd.read_sql('SELECT * FROM genres', con)
 con.close()
 
-print('\nAverages:')
-print(np.mean(reviews[['best_new_music', 'score']]))
+#print('\nAverages:')
+#print(np.mean(reviews[['best_new_music', 'score']]))
 
-print('\nStandard Deviation:')
-print(np.std(reviews[['best_new_music', 'score']]))
+#print('\nStandard Deviation:')
+#print(np.std(reviews[['best_new_music', 'score']]))
 
 g = reviews.groupby('score')
 info = g['best_new_music'].agg(['sum','count']).reset_index()

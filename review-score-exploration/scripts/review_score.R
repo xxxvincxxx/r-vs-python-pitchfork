@@ -1,10 +1,9 @@
-library(tidyverse)
-library(ggplot2)
-library(RSQLite)
 
+packages <- c("tidyverse", "ggplot2", "RSQLite")
+
+zzz<-lapply(packages, function(xxx) suppressMessages(require(xxx, character.only = TRUE,quietly=TRUE,warn.conflicts = FALSE)))
 # connect to the sqlite file
-con = dbConnect(SQLite(), dbname="../data/database.sqlite")# get a list of all tables
-alltables = dbListTables(con)
+con = dbConnect(SQLite(), dbname="/home/vincenzo/Documents/GitHub/r-vs-python-pitchfork/review-score-exploration/scripts/database.sqlite")# get a list of all tables
 # get the populationtable as a data.frame
 df_reviews = dbGetQuery( con,'SELECT * FROM reviews' )
 df_genres = dbGetQuery( con,'SELECT * FROM genres' )
@@ -12,8 +11,11 @@ df_genres = dbGetQuery( con,'SELECT * FROM genres' )
 dbDisconnect(con)           
 
 # mean and std of the score for best new music 
+#df_reviews %>%
+#    summarise(mean(score), mean(best_new_music), sd(score), sd(best_new_music))
+
 df_reviews %>%
-    summarise(mean(score), mean(best_new_music), sd(score), sd(best_new_music))
+    mutate(score_factor = as.factor(score)) -> df_reviews
 
 # plot frequency in ggplot for best_new_music vs. all reviews 
 df_reviews %>%
@@ -23,7 +25,7 @@ df_reviews %>%
     ggplot(aes(x=score_factor, y=frequency, group = type)) + geom_line() + scale_x_discrete(labels = abbreviate)
     
 df_reviews %>% 
-    filter(best_new_music == 0 &  score == 10)
+    filter(best_new_music == 0 &  score == 10) -> df_review_top
 
 df_reviews %>% 
     left_join(df_genres, by = "reviewid") %>%
