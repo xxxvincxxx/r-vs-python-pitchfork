@@ -20,6 +20,7 @@ This repository is currently a work-in-progress!!!
 
 ### Inspiration
 
+* What should I listen to this today? 
 * Do review scores for individual artists generally improve over time, or go down?
 * How has Pitchfork's review genre selection changed over time?
 * Who are the most highly rated artists? The least highly rated artists?
@@ -38,4 +39,32 @@ kaggle datasets download -d nolanbconaway/pitchfork-data
 
 ## Analyses
 
-* [[Link](https://github.com/nolanbconaway/pitchfork-data/blob/master/notebooks/review-score-exploration.ipynb)]: Exploring user reviews
+* [[Link](https://github.com/nolanbconaway/pitchfork-data/blob/master/notebooks/review-score-exploration.ipynb)]: An exploration of review scores.
+
+There's a lot going on in this dataset. I replicated the notebook in R. The notebook took care of:
+   + Score and Best New Music distributions
+   + Ratings by Genre
+   + Ratings by Author
+
+Here the comparison of my script in R vs the script in Python on my machine.
+
+In R:
+
+```console
+vincenzo@B-N-022:~./scripts$ time Rscript review_score.R
+real	0m2.789s
+user	0m2.485s
+sys     0m0.088s
+```
+
+
+In Python: 
+
+```console
+vincenzo@B-N-022:~./scripts$ time python review_score.py
+real	0m4.586s
+user	0m2.051s
+sys	 0m0.954s```
+
+
+The R script is apparently *faster*. Bear in mind that the python script prompts images via matplotlib `plt.show()` during the execution of the script. In any case ggplot2 does the same. So it is worth to investigate the issue (*does matplotplib comand `plt.show()` actually makes the exectution of the script slower?*)
