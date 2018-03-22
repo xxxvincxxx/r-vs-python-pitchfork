@@ -30,8 +30,11 @@ This dataset is provided as a `sqlite` database with the following tables: `arti
 
 For column-level information on specific tables, refer to the Metadata tab.
 
+You can download the dataset from Kaggle via API using: 
 
-
+``` bash
+kaggle datasets download -d nolanbconaway/pitchfork-data
+```
 
 ## Analyses
 
