@@ -1,7 +1,9 @@
 ## Project 
 
 I like R. 
-I live in Berlin and most of the data science job offering require primary knowledge of python. Why? Everybody believes python is faster and more programmer-friendly. 
+But most of companies work and require knowledge of python. Why? Everybody believes python is faster and more programmer-friendly. 
+This might be true for pure python programming, but I believe in the contrary 
+
 
 But the job of a data scientist encompasses 3 big areas:
 
